@@ -36,7 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'guestbook',
+    'mysite',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -48,7 +48,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'magnum.urls'
+ROOT_URLCONF = 'core.urls'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/

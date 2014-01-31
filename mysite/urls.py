@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import patterns
-from guestbook.views import main_page, sign_post
+from mysite.views import main_page, sign_post
 
 urlpatterns = patterns('',
     (r'^sign/$', sign_post),

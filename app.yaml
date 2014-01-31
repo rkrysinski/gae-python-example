@@ -16,4 +16,4 @@ libraries:
   version: "1.5"
   
 env_variables:
-  DJANGO_SETTINGS_MODULE: 'magnum.settings'
+  DJANGO_SETTINGS_MODULE: 'core.settings'

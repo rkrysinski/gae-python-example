@@ -4,7 +4,7 @@ from django.template import RequestContext
 
 from google.appengine.api import users
 
-from guestbook.models import Greeting
+from mysite.models import Greeting
 
 import urllib
 
