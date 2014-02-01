@@ -1,6 +1,5 @@
 from google.appengine.ext import db
 from google.appengine.ext.db import djangoforms
-from django.forms.widgets import CheckboxSelectMultiple
 from django.forms.fields import MultipleChoiceField
 
 #https://developers.google.com/appengine/articles/modeling
@@ -44,8 +43,9 @@ class ListPropertyChoice(MultipleChoiceField):
             super(ListPropertyChoice, self).validate(value)
     
 class MenuItemForm(djangoforms.ModelForm):
-    sub_menu = ListPropertyChoice(
-                        choices=[(m.key(), m.name) for m in MenuItem.all()]
-               )
+    sub_menu = ListPropertyChoice(choices=[(m.key(), m.name) for m in MenuItem.all()])
+    def __init__(self, *args, **kwargs):
+        super(MenuItemForm, self).__init__(*args, **kwargs)
+        self.fields['sub_menu'].choices = [(m.key(), m.name) for m in MenuItem.all()]    
     class Meta:
         model = MenuItem

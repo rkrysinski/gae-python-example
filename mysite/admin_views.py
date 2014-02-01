@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from models import MenuItem, MenuItemForm
 from django.shortcuts import redirect
+import logging
 
 def main(request):
     template_values = MenuItem.all()
@@ -11,7 +12,8 @@ def menu_add(request):
     if request.method == 'POST':
         formset = MenuItemForm(request.POST)
         if formset.is_valid():
-            formset.save()
+            instance = formset.save()
+            MenuItem.get(instance.key()) # for refreshing purposes http://stackoverflow.com/questions/15773892/should-i-expect-stale-results-after-redirect-on-local-environment
             return redirect(menu_list)
     else:
         formset = MenuItemForm()
@@ -44,7 +46,9 @@ def menu_delete(request, key=None):
         return redirect(menu_list)
     if request.POST.get('confirmation') == 'yes':
         m = MenuItem.get(key)
-        if m: m.delete()
+        if m: 
+            m.delete()
+            MenuItem.get(key) # for refreshing purposes http://stackoverflow.com/questions/15773892/should-i-expect-stale-results-after-redirect-on-local-environment
     if request.POST.get('confirmation'):
         return redirect(menu_list)
     return render_to_response("confirmation.html", {}, context_instance=RequestContext(request))     
