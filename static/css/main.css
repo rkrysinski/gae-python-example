@@ -1,4 +1,8 @@
 body {
-  font-family: Verdana, Helvetica, sans-serif;
-  background-color: #DDDDDD;
+	font-family: Verdana, Helvetica, sans-serif;
+	background-color: #DDDDDD;
+}
+table {
+	margin: 10px;
+	border-spacing: 10px;
 }

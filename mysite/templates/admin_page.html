@@ -1,11 +1,22 @@
 <html>
-  <head>
-    <link type="text/css" rel="stylesheet" href="/static/css/main.css" />
-  </head>
-  <body>
+	<head>
+		<link type="text/css" rel="stylesheet" href="/static/css/main.css" />
+	</head>
+	<body>
 
-	<h1>Admin page</h1>
+		<h1>Admin page</h1>
 
-  </body>
+		<fieldset>
+			<legend>MenuItems</legend>
+			<ul>
+				<li>
+					<a href="{% url 'mysite.admin_views.menu_add' %}">add</a>
+				</li>
+				<li>
+					<a href="{% url 'mysite.admin_views.menu_list' %}">list</a>
+				</li>
+			</ul>
+		</fieldset>
+	</body>
 </html>
 

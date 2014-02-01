@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<link type="text/css" rel="stylesheet" href="/static/css/main.css" />
+	</head>
+	<body>
+		<form method="post" action="">
+			{% csrf_token %}
+			<table>
+				{{ formset }}
+			</table>
+			<input type="submit" />
+		</form>
+	    <table>
+	    	<tr>
+			    <td>
+			    <a href="{% url 'mysite.admin_views.menu_list' %}">back to list</a>
+			    </td>
+			    <td>
+			    <a href="{% url 'mysite.admin_views.main' %}">back to admin</a>
+			    </td>
+		    </tr>
+	    </table>		
+	</body>
+</html>
+
