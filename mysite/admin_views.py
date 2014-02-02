@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from models import MenuItem, MenuItemForm
+from models import MenuItem, MenuItemForm, SelectChoiceForm
 from django.shortcuts import redirect
 import logging
 
@@ -9,16 +9,24 @@ def main(request):
     return render_to_response('admin_page.html', template_values, context_instance=RequestContext(request))
 
 def menu_add(request):
-    if request.method == 'POST':
+    isInitial = False
+    level = request.POST.get('level_selection')
+    if not request.POST.get('level') and not level:
+        formset = SelectChoiceForm()
+        isInitial = True
+    elif request.POST.get('initial') == "True":
+        level = request.POST.get('level')
+        formset = MenuItemForm()
+    elif request.method == 'POST':
         formset = MenuItemForm(request.POST)
         if formset.is_valid():
             instance = formset.save()
             MenuItem.get(instance.key()) # for refreshing purposes http://stackoverflow.com/questions/15773892/should-i-expect-stale-results-after-redirect-on-local-environment
             return redirect(menu_list)
-    else:
-        formset = MenuItemForm()
     return render_to_response("add_menu.html", {        
                                     "formset": formset,
+                                    "initial": isInitial,
+                                    "level"  : level,
                               }, context_instance=RequestContext(request))    
 
 def menu_list(request):
