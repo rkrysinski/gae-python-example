@@ -7,7 +7,7 @@ urlpatterns = patterns('',
     (r'^sign/$', sign_post),
     (r'^$', main_page),
     
-    (r'^admin/menu/add/', mysite.admin_views.menu_add),
+    (r'^admin/menu/add/(?P<url_level>\d*)', mysite.admin_views.menu_add),
     (r'^admin/menu/list/', mysite.admin_views.menu_list),
     (r'^admin/menu/edit/(?P<key>[\w-]+)', mysite.admin_views.menu_edit),
     (r'^admin/menu/delete/(?P<key>[\w-]+)', mysite.admin_views.menu_delete),

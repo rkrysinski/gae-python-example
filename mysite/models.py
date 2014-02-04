@@ -2,7 +2,7 @@ from google.appengine.ext import db
 from google.appengine.ext.db import djangoforms
 from django.forms.fields import MultipleChoiceField, ChoiceField
 
-MENU_LEVEL_CHOICES=('level1', 'level2', 'level3')
+MENU_LEVEL_CHOICES=('1', '2', '3')
 
 #https://developers.google.com/appengine/articles/modeling
 #http://brizzled.clapper.org/blog/2008/08/07/writing-blogging-software-for-google-app-engine/
@@ -27,11 +27,14 @@ class Article(db.Model):
 
 class MenuItem(db.Model):
     name          = db.StringProperty(required=True)
-    level         = db.StringProperty(required=True, choices=MENU_LEVEL_CHOICES)
+    level         = db.StringProperty(choices=MENU_LEVEL_CHOICES)
     visible       = db.BooleanProperty(default=False)
     sub_menu      = db.ListProperty(db.Key, default=[])
-    article       = db.ReferenceProperty(Article)    
+    article       = db.ReferenceProperty(Article)
 
+    def get_sub_menu(self):
+        return MenuItem.get(self.sub_menu)
+    
 class ListPropertyChoice(MultipleChoiceField):
     def clean(self, value):
         """ extending the clean method to work with GAE keys """
@@ -46,15 +49,14 @@ class ListPropertyChoice(MultipleChoiceField):
             super(ListPropertyChoice, self).validate(value)
     
 class MenuItemForm(djangoforms.ModelForm):
-    sub_menu = ListPropertyChoice(choices=[(m.key(), m.name) for m in MenuItem.all()])
-    
     def __init__(self, *args, **kwargs):
         super(MenuItemForm, self).__init__(*args, **kwargs)
-        self.fields['sub_menu'].choices = [(m.key(), m.name) for m in MenuItem.all()]
-        
+        level = int(self.initial.get('level') or self.data.get('level')) + 1
+        self.fields['sub_menu'] = ListPropertyChoice(choices = [(m.key(), m.name) for m in MenuItem.all().filter("level = ", str(level)).run()])
+        self.fields['level'].widget.attrs['disabled'] = True
+                   
     class Meta:
         model = MenuItem
-        exclude = ('level',)
 
 class SelectChoiceForm(djangoforms.ModelForm):
     level = ChoiceField(choices = ([(x, x) for x in  MENU_LEVEL_CHOICES]), required = True)

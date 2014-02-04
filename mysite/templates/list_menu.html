@@ -4,24 +4,99 @@
 	</head>
 	<body>
 		<table>
-	    {% for menu in menus %}
-	    <tr>
-	    	<td>{{ menu.name|escape }}</td>
-	    	<td><a href="/admin/menu/edit/{{ menu.key }}">edit</a></td>
-	    	<td><a href="/admin/menu/delete/{{ menu.key }}">delete</a></td>
-	    </tr>
-	    {% endfor %}
-	    </table>
-	    <table>
-	    	<tr>
-			    <td>
-			    <a href="{% url 'mysite.admin_views.menu_add' %}">add</a>
-			    </td>
-			    <td>
-			    <a href="{% url 'mysite.admin_views.main' %}">back to admin</a>
-			    </td>
-		    </tr>
-	    </table>
+			<tr>
+				<td>
+				    <table>
+				    	<tr>
+						    <td>
+						    <a href="{% url 'mysite.admin_views.menu_add' '' %}">add</a>
+						    </td>
+						    <td>
+						    <a href="{% url 'mysite.admin_views.main' %}">back to admin</a>
+						    </td>
+					    </tr>
+				    </table>					
+					<table>
+				    {% for menu in all_items %}
+				    <tr>
+				    	<td>{{ menu.name|escape }}</td>
+				    	<td>level{{ menu.level|escape }}</td>
+				    	<td><a href="{% url 'mysite.admin_views.menu_edit' menu.key %}">edit</a></td>
+				    	<td><a href="{% url 'mysite.admin_views.menu_delete' menu.key %}">delete</a></td>
+				    </tr>
+				    {% endfor %}
+				    </table>
+				</td>
+				<td>
+					<ul>
+						<li>
+							<a href="{% url 'mysite.admin_views.menu_add' '1' %}">add root menu</a><br/>
+							<ul>
+								<li>
+									<a href="{% url 'mysite.admin_views.menu_add' '2' %}">add second menu level</a><br/>
+									<ul>
+										<li>
+											<a href="{% url 'mysite.admin_views.menu_add' '3' %}">add last menu level</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					
+				    {% for menu1 in menu %}
+					<ul>
+						<li>	    
+				    	<a href="#">{{ menu1.name|escape }}</a> 
+				    	(<a href="{% url 'mysite.admin_views.menu_edit' menu1.key %}">edit</a>
+				    	<a href="{% url 'mysite.admin_views.menu_delete' menu1.key %}">delete</a>)
+				    	{% for menu2 in menu1.get_sub_menu %}
+						<ul>
+							<li>	    	
+				    		<a href="#">{{ menu2.name|escape }}</a> 
+				    		(<a href="{% url 'mysite.admin_views.menu_edit' menu2.key %}">edit</a>
+				    		<a href="{% url 'mysite.admin_views.menu_delete' menu2.key %}">delete</a>)
+				    		{% for menu3 in menu2.get_sub_menu %}
+							<ul>
+								<li>
+									<a href="#">{{ menu3.name|escape }}</a> 
+									(<a href="{% url 'mysite.admin_views.menu_edit' menu3.key %}">edit</a>
+									<a href="{% url 'mysite.admin_views.menu_delete' menu3.key %}">delete</a>)
+								</li>	    
+							</ul>
+				    		{% endfor %}
+							</li>	    
+						</ul>
+				    	{% endfor %}
+						</li>	    
+					</ul>
+				    {% endfor %}
+				</td>
+				<td>
+				    {% for menu1 in menu %}
+					<ul>
+						<li>	    
+				    	<a href="#">{{ menu1.name|escape }}</a> 
+				    	{% for menu2 in menu1.get_sub_menu %}
+						<ul>
+							<li>	    	
+				    		<a href="#">{{ menu2.name|escape }}</a> 
+				    		{% for menu3 in menu2.get_sub_menu %}
+							<ul>
+								<li>
+									<a href="#">{{ menu3.name|escape }}</a> 
+								</li>	    
+							</ul>
+				    		{% endfor %}
+							</li>	    
+						</ul>
+				    	{% endfor %}
+						</li>	    
+					</ul>
+				    {% endfor %}
+				</td>				
+		   </tr>
+	    </table>    
 	</body>
 </html>
 

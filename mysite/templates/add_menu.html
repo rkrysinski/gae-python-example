@@ -9,7 +9,9 @@
 				{{ formset }}
 			</table>
 			<input type="hidden" value="{{ initial }}" name="initial"/>
-			<input type="hidden" value="{{ level }}" name="level_selection"/>
+			{% if level %}
+				<input type="hidden" value="{{ level }}" name="level"/>
+			{% endif %}
 			<input type="submit" />
 		</form>
 	    <table>
