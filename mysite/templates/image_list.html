@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<link type="text/css" rel="stylesheet" href="/static/css/main.css" />
+	</head>
+	<body>
+
+		<h1>List images</h1>
+		<table>
+	    {% for image in images %}
+	    <tr>
+	    	<td>Name: {{ image.title|escape }}</td>
+	    	<td><img src="{% url 'mysite.image.get_image' image.title|escape %}" /></td>
+	    	<td><pre><code>{{ image.get_img_code|escape }}"</code></pre></td>
+	    </tr>
+	    {% endfor %}
+	    </table>
+	    <table>
+	    	<tr>
+			    <td>
+			    <a href="{% url 'mysite.admin_views.main' %}">back</a>
+			    </td>
+		    </tr>
+	    </table>		    
+	</body>
+</html>
+

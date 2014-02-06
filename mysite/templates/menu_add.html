@@ -3,6 +3,7 @@
 		<link type="text/css" rel="stylesheet" href="/static/css/main.css" />
 	</head>
 	<body>
+		<h1>Add menu</h1>
 		<form method="post" action="">
 			{% csrf_token %}
 			<table>
@@ -17,10 +18,10 @@
 	    <table>
 	    	<tr>
 			    <td>
-			    <a href="{% url 'mysite.admin_views.menu_list' %}">list</a>
+			    <a href="{% url 'mysite.admin_views.main' %}">back</a>
 			    </td>
 			    <td>
-			    <a href="{% url 'mysite.admin_views.main' %}">back to admin</a>
+			    <a href="{% url 'mysite.admin_views.menu_list' %}">list</a>
 			    </td>
 		    </tr>
 	    </table>		

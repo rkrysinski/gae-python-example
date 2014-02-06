@@ -3,16 +3,17 @@
 		<link type="text/css" rel="stylesheet" href="/static/css/main.css" />
 	</head>
 	<body>
+		<h1>List menu content</h1>
 		<table>
 			<tr>
 				<td>
 				    <table>
 				    	<tr>
 						    <td>
-						    <a href="{% url 'mysite.admin_views.menu_add' '' %}">add</a>
+						    <a href="{% url 'mysite.admin_views.main' %}">back</a>
 						    </td>
 						    <td>
-						    <a href="{% url 'mysite.admin_views.main' %}">back to admin</a>
+						    <a href="{% url 'mysite.admin_views.menu_add' '' %}">add</a>
 						    </td>
 					    </tr>
 				    </table>					

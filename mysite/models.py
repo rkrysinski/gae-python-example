@@ -1,6 +1,6 @@
 from google.appengine.ext import db
-from google.appengine.ext.db import djangoforms
-from django.forms.fields import MultipleChoiceField, ChoiceField
+from google.appengine.api import urlfetch
+urlfetch.set_default_fetch_deadline(45)
 
 MENU_LEVEL_CHOICES=('1', '2', '3')
 
@@ -25,6 +25,10 @@ class Article(db.Model):
     displayCount  = db.IntegerProperty(default=0)
     modified_when = db.DateTimeProperty(auto_now_add=True)
 
+    @classmethod
+    def get_all(cls):
+        return [x for x in Article.all()]
+
 class MenuItem(db.Model):
     name          = db.StringProperty(required=True)
     level         = db.StringProperty(choices=MENU_LEVEL_CHOICES)
@@ -35,29 +39,38 @@ class MenuItem(db.Model):
     def get_sub_menu(self):
         return MenuItem.get(self.sub_menu)
     
-class ListPropertyChoice(MultipleChoiceField):
-    def clean(self, value):
-        """ extending the clean method to work with GAE keys """
-        new_value = super(ListPropertyChoice, self).clean(value)
-        key_list = []
-        for k in new_value:
-            key_list.append(db.Model.get(k).key())
-        return key_list
+    @classmethod
+    def get_all(cls, filter_level=None):
+        if filter_level:
+            return [x for x in MenuItem.all().filter("level = ", MENU_LEVEL_CHOICES[filter_level]).run()]
+        
+        return [x for x in MenuItem.all().order("level")]   
     
-    def validate(self, value):
-        if value:
-            super(ListPropertyChoice, self).validate(value)
     
-class MenuItemForm(djangoforms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(MenuItemForm, self).__init__(*args, **kwargs)
-        level = int(self.initial.get('level') or self.data.get('level')) + 1
-        self.fields['sub_menu'] = ListPropertyChoice(choices = [(m.key(), m.name) for m in MenuItem.all().filter("level = ", str(level)).run()])
-        self.fields['level'].widget.attrs['disabled'] = True
-                   
-    class Meta:
-        model = MenuItem
+class Movie(db.Model):
+    '''
+    See: https://developers.google.com/appengine/articles/python/serving_dynamic_images
+    '''
+    title = db.StringProperty()
+    picture = db.BlobProperty(default=None)
 
-class SelectChoiceForm(djangoforms.ModelForm):
-    level = ChoiceField(choices = ([(x, x) for x in  MENU_LEVEL_CHOICES]), required = True)
-    
+    def set_content(self, url):
+        import re
+        self.title = re.search('.*/(.+\....)', url).group(1)
+        self.picture = db.Blob(urlfetch.Fetch(url).content)
+        
+    def get_img_code(self):
+        return r'<img src="/images/%s" />' % self.title
+        
+    @classmethod
+    def get_movie(cls, title):
+        result = db.GqlQuery("SELECT * FROM Movie WHERE title = :1 LIMIT 1",
+                        title).fetch(1)
+        if (len(result) > 0):
+            return result[0]
+        else:
+            return None    
+        
+    @classmethod
+    def get_all(cls):
+        return [x for x in Movie.all()]   
