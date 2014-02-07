@@ -8,6 +8,7 @@
 		<table>
 	    {% for image in images %}
 	    <tr>
+	    	<td><a href="{% url 'mysite.admin_views.image_delete' image.key %}">delete</a></td>
 	    	<td>Name: {{ image.title|escape }}</td>
 	    	<td><img src="{% url 'mysite.image.get_image' image.title|escape %}" /></td>
 	    	<td><pre><code>{{ image.get_img_code|escape }}"</code></pre></td>

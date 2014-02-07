@@ -1,6 +1,6 @@
 body {
 	font-family: Verdana, Helvetica, sans-serif;
-	background-color: #DDDDDD;
+	background-color: #EEEEEE;
 }
 table {
 	margin: 10px;
@@ -15,4 +15,10 @@ fieldset {
 .sub_menu {
 	width: 100%;
 	height: 250px;
+}
+
+.article_body {
+	width: 900px;
+	height: 600px;
+	background: white;
 }

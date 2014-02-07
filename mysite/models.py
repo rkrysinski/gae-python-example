@@ -1,5 +1,6 @@
 from google.appengine.ext import db
 from google.appengine.api import urlfetch
+from django.template.defaultfilters import slugify
 urlfetch.set_default_fetch_deadline(45)
 
 MENU_LEVEL_CHOICES=('1', '2', '3')
@@ -25,10 +26,22 @@ class Article(db.Model):
     displayCount  = db.IntegerProperty(default=0)
     modified_when = db.DateTimeProperty(auto_now_add=True)
 
+    def put(self, *args, **kwargs):
+        self.url_slug = str(slugify(self.title))
+        super(Article, self).put(*args, **kwargs)
+        
     @classmethod
     def get_all(cls):
         return [x for x in Article.all()]
-
+    
+    @classmethod
+    def get_by_slug(cls, slug):
+        result = db.GqlQuery("SELECT * FROM Article WHERE url_slug = :1 LIMIT 1", slug).fetch(1)
+        if (len(result) > 0):
+            return result[0]
+        else:
+            return None           
+    
 class MenuItem(db.Model):
     name          = db.StringProperty(required=True)
     level         = db.StringProperty(choices=MENU_LEVEL_CHOICES)
@@ -40,11 +53,12 @@ class MenuItem(db.Model):
         return MenuItem.get(self.sub_menu)
     
     @classmethod
-    def get_all(cls, filter_level=None):
-        if filter_level:
-            return [x for x in MenuItem.all().filter("level = ", MENU_LEVEL_CHOICES[filter_level]).run()]
-        
+    def get_all(cls):
         return [x for x in MenuItem.all().order("level")]   
+    
+    @classmethod
+    def get_root_elements(cls):
+        return [x for x in MenuItem.all().filter("level = ", MENU_LEVEL_CHOICES[0]).run()]
     
     
 class Movie(db.Model):
@@ -54,10 +68,14 @@ class Movie(db.Model):
     title = db.StringProperty()
     picture = db.BlobProperty(default=None)
 
-    def set_content(self, url):
+    def fetch_content(self, url):
         import re
         self.title = re.search('.*/(.+\....)', url).group(1)
         self.picture = db.Blob(urlfetch.Fetch(url).content)
+        
+    def upload_content(self, f):
+        self.title = f.name
+        self.picture = db.Blob(f.read())
         
     def get_img_code(self):
         return r'<img src="/images/%s" />' % self.title

@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<link type="text/css" rel="stylesheet" href="/static/css/main.css" />
+	</head>
+	<body>
+
+		<h1>{{ article.title|escape }}</h1>
+		{{ article.body|safe }}
+	    <table>
+	    	<tr>
+			    <td>
+			    <a href="{% url 'mysite.admin_views.main' %}">back</a>
+			    </td>
+		    </tr>
+	    </table>		    
+	</body>
+</html>
+

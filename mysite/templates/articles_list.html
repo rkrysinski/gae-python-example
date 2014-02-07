@@ -9,6 +9,8 @@
 	    {% for article in articles %}
 	    <tr>
 	    	<td>Name: {{ article.title|escape }}</td>
+	    	<td><a href="{% url 'mysite.admin_views.article_view' article.url_slug %}">view</a></td>
+	    	<td><a href="{% url 'mysite.admin_views.article_delete' article.key %}">delete</a></td>
 	    </tr>
 	    {% endfor %}
 	    </table>
