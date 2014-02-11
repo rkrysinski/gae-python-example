@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mysite',
+    'elfinder',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -68,8 +69,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+ELFINDER_URL = STATIC_URL + "elfinder/" 
+ELRTE_URL = STATIC_URL + "elrte/"
 
 ROOT_PATH = os.path.dirname(__file__)
 TEMPLATE_DIRS = (os.path.join(ROOT_PATH, "templates"),)
-
 

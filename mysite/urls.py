@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     (r'^admin/article/delete/(?P<key>[\w-]+)', mysite.admin_views.article_delete),    
     
     (r'^images/(?P<title>.+)', mysite.image.get_image),
+    (r'^tmb/(?P<key>[\w-]+)', mysite.image.get_tmb),
     
     (r'^admin/', mysite.admin_views.main),
 )

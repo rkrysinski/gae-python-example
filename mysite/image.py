@@ -7,4 +7,12 @@ def get_image(request, title):
     if (movie and movie.picture):
         return HttpResponse(movie.picture, mimetype="image/jpeg")
     else:
-        return redirect('/static/noimage.jpg')    
+        return redirect('/static/noimage.jpg')
+    
+def get_tmb(request, key):
+    movie = Movie.get(key)
+    if movie.thumbnail:
+        return HttpResponse(movie.thumbnail, mimetype="image/jpeg")
+    else:
+        return redirect('/static/noimage_tmb.jpg')
+    

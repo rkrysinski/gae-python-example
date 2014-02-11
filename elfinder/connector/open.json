@@ -1,0 +1,206 @@
+{
+	"cwd": {
+		"mime": "directory",
+		"ts": 1392119587,
+		"read": 1,
+		"write": 1,
+		"size": 0,
+		"hash": "l2_SmFu",
+		"name": "Jan",
+		"phash": "l2_Lw"
+	},
+	"options": {
+		"path": "Test here\/Jan",
+		"url": "http:\/\/elfinder.org\/files\/test\/",
+		"tmbUrl": "http:\/\/elfinder.org\/files\/test\/.tmb\/",
+		"disabled": [],
+		"separator": "\/",
+		"copyOverwrite": 1,
+		"archivers": {
+			"create": ["application\/x-tar", "application\/x-gzip"],
+			"extract": ["application\/x-tar", "application\/x-gzip"]
+		}
+	},
+	"files": [
+		{
+			"mime": "directory",
+			"ts": 1392119587,
+			"read": 1,
+			"write": 1,
+			"size": 0,
+			"hash": "l2_SmFu",
+			"name": "Jan",
+			"phash": "l2_Lw"
+		}, {
+			"mime": "directory",
+			"ts": 1334071677,
+			"read": 1,
+			"write": 0,
+			"size": 0,
+			"hash": "l1_Lw",
+			"volumeid": "l1_",
+			"name": "Demo",
+			"locked": 1,
+			"dirs": 1
+		}, {
+			"mime": "directory",
+			"ts": 1340114567,
+			"read": 0,
+			"write": 0,
+			"size": 0,
+			"hash": "l1_QmFja3Vw",
+			"name": "Backup",
+			"phash": "l1_Lw",
+			"locked": 1
+		}, {
+			"mime": "directory",
+			"ts": 1310252178,
+			"read": 1,
+			"write": 0,
+			"size": 0,
+			"hash": "l1_SW1hZ2Vz",
+			"name": "Images",
+			"phash": "l1_Lw",
+			"locked": 1
+		}, {
+			"mime": "directory",
+			"ts": 1310250758,
+			"read": 1,
+			"write": 0,
+			"size": 0,
+			"hash": "l1_TUlNRS10eXBlcw",
+			"name": "MIME-types",
+			"phash": "l1_Lw",
+			"locked": 1
+		}, {
+			"mime": "directory",
+			"ts": 1268269762,
+			"read": 1,
+			"write": 0,
+			"size": 0,
+			"hash": "l1_V2VsY29tZQ",
+			"name": "Welcome",
+			"phash": "l1_Lw",
+			"locked": 1,
+			"dirs": 1
+		}, {
+			"mime": "directory",
+			"ts": 1392125553,
+			"read": 1,
+			"write": 1,
+			"size": 0,
+			"hash": "l2_Lw",
+			"volumeid": "l2_",
+			"name": "Test here",
+			"locked": 1,
+			"dirs": 1
+		}, {
+			"mime": "directory",
+			"ts": 1392122344,
+			"read": 1,
+			"write": 1,
+			"size": 0,
+			"hash": "l2_RmVi",
+			"name": "Feb",
+			"phash": "l2_Lw"
+		}, {
+			"mime": "directory",
+			"ts": 1392119947,
+			"read": 1,
+			"write": 1,
+			"size": 0,
+			"hash": "l2_RmViIGNvcHkgMQ",
+			"name": "Feb copy 1",
+			"phash": "l2_Lw"
+		}, {
+			"mime": "directory",
+			"ts": 1392122787,
+			"read": 1,
+			"write": 1,
+			"size": 0,
+			"hash": "l2_SW1hZ2Vz",
+			"name": "Images",
+			"phash": "l2_Lw"
+		}, {
+			"mime": "directory",
+			"ts": 1392118585,
+			"read": 1,
+			"write": 1,
+			"size": 0,
+			"hash": "l2_TWFyY2gyMDE0",
+			"name": "March2014",
+			"phash": "l2_Lw"
+		}, {
+			"mime": "directory",
+			"ts": 1392120593,
+			"read": 1,
+			"write": 1,
+			"size": 0,
+			"hash": "l2_dW50aXRsZWQgZm9sZGVy",
+			"name": "untitled folder",
+			"phash": "l2_Lw"
+		}, {
+			"mime": "directory",
+			"ts": 1392123840,
+			"read": 1,
+			"write": 1,
+			"size": 0,
+			"hash": "l2_dW50aXRsZWQgZm9sZGVyIGNvcHkgMQ",
+			"name": "untitled folder copy 1",
+			"phash": "l2_Lw"
+		}, {
+			"mime": "image\/png",
+			"ts": 1392119587,
+			"read": 1,
+			"write": 1,
+			"size": 12477,
+			"hash": "l2_SmFuL3BuZy0wMDA2IGNvcHkgMS5wbmc",
+			"name": "png-0006 copy 1.png",
+			"phash": "l2_SmFu",
+			"tmb": "l2_SmFuL3BuZy0wMDA2IGNvcHkgMS5wbmc1392119587.png"
+		}, {
+			"mime": "image\/png",
+			"ts": 1392114694,
+			"read": 1,
+			"write": 1,
+			"size": 12477,
+			"hash": "l2_SmFuL3BuZy0wMDA2LnBuZw",
+			"name": "png-0006.png",
+			"phash": "l2_SmFu",
+			"tmb": "l2_SmFuL3BuZy0wMDA2LnBuZw1392114694.png"
+		}, {
+			"mime": "text\/plain",
+			"ts": 1392114672,
+			"read": 1,
+			"write": 1,
+			"size": 0,
+			"hash": "l2_SmFuL3VudGl0bGVkIGZpbGUudHh0",
+			"name": "untitled file.txt",
+			"phash": "l2_SmFu"
+		}
+	],
+	"api": "2.0",
+	"uplMaxSize": "16M",
+	"netDrivers": [],
+	"debug": {
+		"connector": "php",
+		"phpver": "5.3.26-1~dotdeb.0",
+		"time": 0.016488075256348,
+		"memory": "1327Kb \/ 1214Kb \/ 128M",
+		"upload": "",
+		"volumes": [
+			{
+				"id": "l1_",
+				"name": "localfilesystem",
+				"mimeDetect": "internal",
+				"imgLib": "imagick"
+			}, {
+				"id": "l2_",
+				"name": "localfilesystem",
+				"mimeDetect": "internal",
+				"imgLib": "gd"
+			}
+		],
+		"mountErrors": []
+	}
+}

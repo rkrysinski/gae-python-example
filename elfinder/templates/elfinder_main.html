@@ -1,0 +1,52 @@
+<html>
+  <body>
+    {% block includes %}
+    {% load staticfiles %}
+
+	<!-- jQuery and jQuery UI (REQUIRED) -->
+	<link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/smoothness/jquery-ui.css">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+
+	<!-- elFinder CSS (REQUIRED) -->
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static "elfinder/css/elfinder.min.css" %}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static "elfinder/css/theme.css" %}">
+
+	<!-- elFinder JS (REQUIRED) -->
+    <script type="text/javascript" src="{% static "elfinder/js/elfinder.min.js" %}"></script>
+    
+    {% endblock includes %}
+
+    {% block elfinder_init %}
+    <script type="text/javascript" charset="utf-8">
+        $().ready(function() {
+        var elf = $('#elfinder').elfinder({
+            url : '{% url "elfinder.views.connector" %}',
+            places : 'h',
+            rememberLastDir : false,
+            placesFirst : false,
+            requestType: 'post',
+            customData : { csrfmiddlewaretoken : '{{ csrf_token }}',  },
+            uiOptions : { toolbar : [ 
+                            ['upload'],
+                            ['rename'],
+                            ['rm'],
+                            ['view'],
+                            ['quicklook'],
+                         ]
+                        },
+            contextmenu : {
+            				navbar : ['upload'],
+							cwd : ['upload'],            	
+                            files : ['open', 'rename', 'rm'],
+                          }
+        }).elfinder('instance');            
+        });
+    </script>
+    {% endblock elfinder_init %}
+
+    {% block elfinder_div %}
+    <div id="elfinder"></div>
+    {% endblock elfinder_div %}
+  </body>
+</html>
