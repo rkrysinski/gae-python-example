@@ -9,7 +9,9 @@ class Dispatcher:
         cmd = None
         if operation:
             try:
+                logging.info("files: %s " % request.FILES)
                 cmd = Dispatcher.get_class(operation, request.POST)
+                cmd.set_uploaded_files(request.FILES)
             except Exception as e:
                 logging.info("e: %s" % e)
         return cmd

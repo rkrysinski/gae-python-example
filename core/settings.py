@@ -75,3 +75,7 @@ ELRTE_URL = STATIC_URL + "elrte/"
 ROOT_PATH = os.path.dirname(__file__)
 TEMPLATE_DIRS = (os.path.join(ROOT_PATH, "templates"),)
 
+FILE_UPLOAD_HANDLERS = ('django.core.files.uploadhandler.MemoryFileUploadHandler',)
+FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440 # the django default: 2.5MB
+
+

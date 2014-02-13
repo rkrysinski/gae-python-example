@@ -1,13 +1,10 @@
 import logging
 import time
+from command import Command, ROOT_FOLDER_NAME, ROOT_FOLDER_HASH
 from mysite.models import Movie
-import sys
 
-ROOT_FOLDER_HASH = "DB_"
-ROOT_FOLDER_NAME = "GAE DB"
-VOLUME_ID = "_l1"
 
-class Open:
+class Open(Command):
         
     def execute(self):
         logging.info("dict: %s" % self.__dict__)
@@ -21,16 +18,17 @@ class Open:
             
         if self.is_param_true("tree"):
             
-            response['files'] = self.get_files_and_dirs()
+            response['files'] = self.get_files_and_dirs(Movie.get_all())
+            response['files'].append(self.get_cwd())
             
-        if self.is_param_true("target"):
+        elif self.is_param_true("target"):
             
             response['files'] = self.get_target(self.target)
             
         response['cwd'] = self.get_cwd()
         
         import pprint
-        logging.info("resposne: %s" % pprint.pprint(response))
+        logging.info("resposne: \n%s" % pprint.pformat(response))
         return response
             
     def get_api(self):
@@ -48,24 +46,6 @@ class Open:
             }
         }
         
-    def get_files_and_dirs(self):
-        files = []
-        files.append(self.get_cwd())
-        for picture in Movie.get_all():
-            files.append({
-                "mime": "image/jpeg",
-                "ts": int(time.time()),
-                "read": 1,
-                "write": 1,
-                "size": sys.getsizeof(picture.picture),
-                "hash": "%s" % picture.key(),
-                "volumeid": VOLUME_ID,
-                "name": picture.title,
-                "phash" : ROOT_FOLDER_HASH,
-                "tmb" : "%s" % picture.key(),
-            })
-        return files
-        
     def get_target(self, target):
         None
             
@@ -80,17 +60,6 @@ class Open:
             "write"   : 1,
             "size"    : 0,
         }
-    
-    def is_param_true(self, member_name):
-        member = self.__dict__.get(member_name)
-        
-        logging.info("member: %s" % member)
-        if member:
-            if type(member) == list and len(member) > 0 and member[0] == "1":
-                return True
-            else:
-                return member
-        return False
                 
             
             

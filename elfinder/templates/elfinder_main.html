@@ -22,9 +22,9 @@
         $().ready(function() {
         var elf = $('#elfinder').elfinder({
             url : '{% url "elfinder.views.connector" %}',
-            places : 'h',
-            rememberLastDir : false,
-            placesFirst : false,
+            //places : 'h',
+            //rememberLastDir : false,
+            //placesFirst : false,
             requestType: 'post',
             customData : { csrfmiddlewaretoken : '{{ csrf_token }}',  },
             uiOptions : { toolbar : [ 
@@ -32,7 +32,6 @@
                             ['rename'],
                             ['rm'],
                             ['view'],
-                            ['quicklook'],
                          ]
                         },
             contextmenu : {
@@ -42,7 +41,7 @@
                           }
         }).elfinder('instance');            
         });
-    </script>
+    </script>   
     {% endblock elfinder_init %}
 
     {% block elfinder_div %}
