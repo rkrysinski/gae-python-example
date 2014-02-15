@@ -1,5 +1,5 @@
 import logging
-from mysite.models import Movie
+from images.models import Picture
 from command import Command
 
 class Rm(Command):
@@ -13,9 +13,9 @@ class Rm(Command):
             
             removed = []
             for key in self.getlist("targets[]"):
-                m = Movie.get(key)
+                m = Picture.get(key)
                 m.delete()
-                Movie.get(m.key())
+                Picture.get(m.key())
                 removed.append(key)
             response["removed"] = removed
             

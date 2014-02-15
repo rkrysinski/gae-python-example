@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import patterns
 from mysite.views import main_page, sign_post
-import mysite.admin_views, mysite.image
+import mysite.admin_views
 
 
 urlpatterns = patterns('',
@@ -21,9 +21,6 @@ urlpatterns = patterns('',
     (r'^admin/article/list/', mysite.admin_views.article_list),
     (r'^admin/article/view/(?P<slug>.+)', mysite.admin_views.article_view),
     (r'^admin/article/delete/(?P<key>[\w-]+)', mysite.admin_views.article_delete),    
-    
-    (r'^images/(?P<title>.+)', mysite.image.get_image),
-    (r'^tmb/(?P<key>[\w-]+)', mysite.image.get_tmb),
     
     (r'^admin/', mysite.admin_views.main),
 )

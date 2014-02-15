@@ -1,8 +1,7 @@
 import logging
 import time
 from command import Command, ROOT_FOLDER_NAME, ROOT_FOLDER_HASH
-from mysite.models import Movie
-
+from images.models import Picture
 
 class Open(Command):
         
@@ -18,7 +17,7 @@ class Open(Command):
             
         if self.is_param_true("tree"):
             
-            response['files'] = self.get_files_and_dirs(Movie.get_all())
+            response['files'] = self.get_files_and_dirs(Picture.get_all())
             response['files'].append(self.get_cwd())
             
         elif self.is_param_true("target"):
@@ -37,7 +36,7 @@ class Open(Command):
     def get_options(self):
         return {
             "url"          : "/images/",
-            "tmbUrl"       : "/tmb/",
+            "tmbUrl"       : "/images/tmb/",
             "disabled"     : [],
             "separator"    : "/",
             "archivers": {

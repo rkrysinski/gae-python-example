@@ -2,7 +2,6 @@ from google.appengine.ext import db
 from google.appengine.api import urlfetch
 from django.template.defaultfilters import slugify
 urlfetch.set_default_fetch_deadline(45)
-from google.appengine.api import images
 
 MENU_LEVEL_CHOICES=('1', '2', '3')
 
@@ -61,43 +60,3 @@ class MenuItem(db.Model):
     def get_root_elements(cls):
         return [x for x in MenuItem.all().filter("level = ", MENU_LEVEL_CHOICES[0]).run()]
     
-    
-class Movie(db.Model):
-    '''
-    See: https://developers.google.com/appengine/articles/python/serving_dynamic_images
-    '''
-    title     = db.StringProperty()
-    picture   = db.BlobProperty(default=None)
-    thumbnail = db.BlobProperty(default=None)
-
-    def fetch_content(self, url):
-        import re
-        self.title = re.search('.*/(.+\....)', url).group(1)
-        self.picture = db.Blob(urlfetch.Fetch(url).content)
-        self.set_thumbnail()
-        
-    def upload_content(self, f):
-        self.title = f.name
-        self.picture = db.Blob(f.read())
-        self.set_thumbnail()
-        
-    def set_thumbnail(self):
-        if self.picture:
-            tmb = images.resize(self.picture, 48, 48)
-            self.thumbnail = db.Blob(tmb)
-        
-    def get_img_code(self):
-        return r'<img src="/images/%s" />' % self.title
-        
-    @classmethod
-    def get_movie(cls, title):
-        result = db.GqlQuery("SELECT * FROM Movie WHERE title = :1 LIMIT 1",
-                        title).fetch(1)
-        if (len(result) > 0):
-            return result[0]
-        else:
-            return None    
-        
-    @classmethod
-    def get_all(cls):
-        return [x for x in Movie.all()]   

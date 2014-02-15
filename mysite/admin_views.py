@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from models import MenuItem, Movie, Article
+from models import MenuItem, Article
+from images.models import Picture
 from forms import MenuItemForm, SelectChoiceForm, AddImmageForm, ArticleForm, UploadFileForm
 from django.shortcuts import redirect
 
@@ -73,10 +74,10 @@ def image_add(request):
     formset = None
     urlfetch = request.POST.get('urlfetch')
     if urlfetch:
-        movie = Movie()
+        movie = Picture()
         movie.fetch_content(urlfetch)
         movie.put()
-        Movie.get(movie.key())
+        Picture.get(movie.key())
         return redirect(image_list)
     else:
         formset = AddImmageForm()
@@ -87,17 +88,17 @@ def image_add(request):
     
 def image_list(request):
     return render_to_response("image_list.html", {
-                                    "images" : Movie.get_all(),
+                                    "images" : Picture.get_all(),
                               }, context_instance=RequestContext(request))    
 
 def image_upload(request):
     if request.method == 'POST':
         formset = UploadFileForm(request.POST, request.FILES)
         if formset.is_valid():
-            movie = Movie()
+            movie = Picture()
             movie.upload_content(request.FILES['file'])
             movie.put()
-            Movie.get(movie.key())
+            Picture.get(movie.key())
             return redirect(image_list)
     else:
         formset = UploadFileForm()
@@ -109,10 +110,10 @@ def image_delete(request, key):
     if not key:
         return redirect(image_list)
     if request.POST.get('confirmation') == 'yes':
-        m = Movie.get(key)
+        m = Picture.get(key)
         if m: 
             m.delete()
-            Movie.get(key) # for refreshing purposes http://stackoverflow.com/questions/15773892/should-i-expect-stale-results-after-redirect-on-local-environment
+            Picture.get(key) # for refreshing purposes http://stackoverflow.com/questions/15773892/should-i-expect-stale-results-after-redirect-on-local-environment
     if request.POST.get('confirmation'):
         return redirect(image_list)
     return render_to_response("confirmation.html", {}, context_instance=RequestContext(request))

@@ -1,5 +1,5 @@
 import logging
-from mysite.models import Movie
+from images.models import Picture
 from command import Command
 
 class Rename(Command):
@@ -10,10 +10,10 @@ class Rename(Command):
         response = {}
         
         if self.is_param_true("target") and self.is_param_true("name"):
-            m = Movie.get(self.get("target"))
+            m = Picture.get(self.get("target"))
             m.title = self.get("name")
             m.put()
-            Movie.get(m.key())
+            Picture.get(m.key())
         else:
             Command.get_error("Invalid backend configuration")
         
